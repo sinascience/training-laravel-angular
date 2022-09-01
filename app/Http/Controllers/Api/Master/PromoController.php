@@ -9,7 +9,6 @@ use App\Http\Resources\Promo\PromoResource;
 use App\Http\Resources\Promo\PromoCollection;
 use App\Http\Requests\Promo\CreateRequest;
 use App\Http\Requests\Promo\UpdateRequest;
-use App\Http\Resources\Promo\DetailResource;
 
 class ItemController extends Controller
 {
