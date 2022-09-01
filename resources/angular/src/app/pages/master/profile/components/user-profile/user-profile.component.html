@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="mb-3">Profil User</h1>
+                    <div class="d-flex flex-row  align-items-center">
+                        <img src="{{userLogin.fotoUrl}}" class="rounded-circle" width="100px" height="100px">
+                        <div class="flex-column ml-3">
+                            <h5 class="card-title">{{userLogin.nama}}</h5>
+                            <p class="card-text">{{userLogin.email}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="mb-4">Edit User</h1>
+                    <profile-form [userId]="userLogin.id" (afterSave)="getUserLogin()"></profile-form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
