@@ -58,7 +58,7 @@
         <input type="text" (change)="getCustomerBySearch($event)" id="nama" name="nama" class="form-control" placeholder="cari...">
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="cari.close()">Close</button>
+        <button type="button" class="btn btn-secondary" (click)="cari.close(); reloadDataTable()">Close</button>
 
         <button type="button" class="btn btn-primary">Cari</button>
       </div>
@@ -72,6 +72,6 @@
         </button>
     </div>
     <div class="modal-body">
-        <customer-form [customerId]="modelId" (afterSave)="modal.close(); getCustomer()"></customer-form>
+        <customer-form [customerId]="modelId" (afterSave)="modal.close(); getCustomer(); reloadDataTable()"></customer-form>
     </div>
 </ng-template>

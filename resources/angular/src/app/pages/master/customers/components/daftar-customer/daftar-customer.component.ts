@@ -38,6 +38,12 @@ export class DaftarCustomerComponent implements OnInit {
         return index;
     }
 
+    reloadDataTable(): void {
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.draw();
+        });
+    }
+
     getCustomer() {
         this.dtOptions = {
             serverSide: true,
