@@ -41,12 +41,12 @@ class PromoModel extends Model implements ModelInterface
 
     protected $fillable = [
         'nama',
-        'tipe',
+        'type',
         'diskon',
-        'harga',
-        'deskripsi',
+        'nominal',
+        'syarat_ketentuan',
         'foto',
-        'expired',
+        'kadaluarsa',
     ];
 
     // /**

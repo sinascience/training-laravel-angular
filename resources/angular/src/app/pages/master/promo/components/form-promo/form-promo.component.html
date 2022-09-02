@@ -1,0 +1,85 @@
+<form>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-md-4 required">Nama</label>
+                <div class="col-md-8">
+                    <input [(ngModel)]="formModel.nama" type="text" name="nama" class="form-control"
+                        placeholder="Nama Item / Menu">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4">Foto Promo</label>
+                <div class="col-md-8">
+                    <input (change)="onFileSelected($event)" type="file" name="foto" class="form-control-file">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Tipe</label>
+                <div class="col-md-8">
+                    <div class="btn-group" role="group" ngbRadioGroup name="kategori" [(ngModel)]="formModel.type">
+                        <label ngbButtonLabel class="btn-info" >
+                            <input ngbButton type="radio" class="btn-check" value="diskon" (change)="valueType($event.target.value)"> Diskon
+                        </label>
+                        <label ngbButtonLabel class="btn-info">
+                            <input ngbButton type="radio" class="btn-check" value="voucher" (change)="valueType($event.target.value)"> Voucher
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row" *ngIf="isDiskon;">
+                <label class="col-md-4 required">Diskon</label>
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <input [(ngModel)]="formModel.diskon" type="text" name="diskon" class="form-control"
+                            placeholder="Persentase Diskon">
+                        <div class="input-group-append">
+                            <span class="input-group-text">%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row" *ngIf="isVoucher;">
+                <label class="col-md-4 required">Nominal</label>
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Rp</span>
+                        </div>
+                        <input [(ngModel)]="formModel.nominal" type="text" name="nominal" class="form-control"
+                            placeholder="Harga Jual">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-md-4 required">Syarat Ketentuan</label>
+                <div class="col-md-8">
+                    <textarea [(ngModel)]="formModel.syarat_ketentuan" class="form-control" name="syarat_ketentuan"
+                        placeholder="Tuliskan detail mengenai item / menu ini" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Expired</label>
+                <div class="col-md-8">
+                    <select class="form-select" [(ngModel)]="formModel.kadaluarsa" name="kadaluarsa">
+                        <option value="1">1</option>
+                        <option value="3">3</option>
+                        <option value="7">7</option>
+                        <option value="30">30</option>
+                    </select><label class="ml-2">Days</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-primary" (click)="save()">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

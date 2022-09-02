@@ -72,21 +72,21 @@ class PromoHelper implements CrudInterface
                  * Parameter kedua ("gcs") digunakan untuk upload ke Google Cloud Service
                  * jika mau upload di server local, maka tidak usah pakai parameter kedua
                  */
-                $foto = $payload['foto']->store('upload/fotoItem');
+                $foto = $payload['foto']->store('upload/fotoPromo');
                 $payload['foto'] = $foto;
             }
 
-            // Hapus detail dari payload karena tabel m_item tidak memiliki kolom "detail"
-            $detailItem = $payload['detail'] ?? [];
-            unset($payload['detail']);
+            // // Hapus detail dari payload karena tabel m_item tidak memiliki kolom "detail"
+            // $detailItem = $payload['detail'] ?? [];
+            // unset($payload['detail']);
 
             $newPromo = $this->promoModel->store($payload);
             
-            // Simpan detail item
-            if (!empty($detailItem)) {
-                $detail = new ItemDetHelper($newPromo);
-                $detail->create($detailItem);
-            }
+            // // Simpan detail item
+            // if (!empty($detailItem)) {
+            //     $detail = new ItemDetHelper($newPromo);
+            //     $detail->create($detailItem);
+            // }
 
             return [
                 'status' => true,

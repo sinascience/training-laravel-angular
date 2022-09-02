@@ -10,7 +10,7 @@ use App\Http\Resources\Promo\PromoCollection;
 use App\Http\Requests\Promo\CreateRequest;
 use App\Http\Requests\Promo\UpdateRequest;
 
-class ItemController extends Controller
+class PromoController extends Controller
 {
     protected $item;
 
