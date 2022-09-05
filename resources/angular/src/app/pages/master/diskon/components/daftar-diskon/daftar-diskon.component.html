@@ -1,0 +1,55 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1>
+                        Daftar Items
+                    </h1>
+                    <div role="group" class="btn-group btn-group-sm btn-group-justified blocks">
+                        <button  type="button" class="btn btn-sm btn-outline-secondary mr-2" (click)="pencarian(cari)">
+                            <i class="fa fa-search font-size-14 align-middle mr-1"></i> Pencarian 
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table datatable [dtOptions]="dtOptions" class="table table-hover" *ngIf="isCome">
+                        <thead class="thead-light">
+                            <tr>
+                                <td width="80"></td>
+                                <td></td>
+                                <td *ngFor="let col of listPromo" width="80" class="text-center">{{ col.nama }}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let val of listUser; index as i;">
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ val.nama }}</td>
+                                <td *ngFor="let col of listPromo" width="80" class="text-center">
+                                    <diskon-form [user]="val.id" [promo]="col.id" ></diskon-form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #cari let-cari>
+    <div class="modal-header">
+        <h5 class="modal-title mt-0">{{titleModal}}</h5>
+        <button type="button" class="close" (click)="cari.close()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <input type="text" (change)="getDiskonBySearch($event)" id="nama" name="nama" class="form-control" placeholder="cari...">
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="cari.close(); reloadDataTable()">Close</button>
+
+        <button type="button" class="btn btn-primary">Cari</button>
+      </div>
+</ng-template>

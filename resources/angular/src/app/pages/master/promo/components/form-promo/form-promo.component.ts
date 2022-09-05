@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChange, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common'; 
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChange} from '@angular/core';
 import { LandaService } from 'src/app/core/services/landa.service';
 import {PromoService } from '../../services/promo.service';
 
@@ -17,7 +16,7 @@ export class FormPromoComponent implements OnInit {
     required: boolean = false;
 
     formModel : {
-        id_promo: number,
+        id: number,
         nama: string,
         type: string,
         diskon: number,
@@ -29,7 +28,6 @@ export class FormPromoComponent implements OnInit {
     }
 
     constructor(
-        @Inject(DOCUMENT) document: Document,
         private promoService:PromoService,
         private landaService: LandaService
     ) {}
@@ -39,7 +37,7 @@ export class FormPromoComponent implements OnInit {
     }
     
     ngOnChanges(changes: SimpleChange) {
-
+        this.emptyForm();
     }
 
     valueType(value) {
@@ -57,7 +55,7 @@ export class FormPromoComponent implements OnInit {
     emptyForm() {
         this.mode = 'add';
         this.formModel = {
-            id_promo: 0,
+            id: 0,
             nama: '',
             type: 'diskon',
             diskon: 0,
@@ -66,6 +64,11 @@ export class FormPromoComponent implements OnInit {
             nominal: 0,
             syarat_ketentuan: '',
             kadaluarsa: 0,
+        }
+
+        if (this.promoId > 0) {
+            this.mode = 'edit';
+            this.getPromo(this.promoId);
         }
 
     }
@@ -86,6 +89,18 @@ export class FormPromoComponent implements OnInit {
                 this.landaService.alertError('Mohon Maaf', err.error.errors);
             });
         }
+    }
+
+    getPromo(promoId) {
+        this.promoService.getPromoById(promoId).subscribe((res: any) => {
+            this.formModel = res.data;
+        }, err => {
+            console.log(err);
+        });
+    }
+
+    back() {
+        this.afterSave.emit();
     }
 
     onFileSelected(event) {

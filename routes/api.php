@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\User\UserController;
 use App\Http\Controllers\Api\Master\CustomerController;
 use App\Http\Controllers\Api\Master\ItemController;
 use App\Http\Controllers\Api\Master\PromoController;
+use App\Http\Controllers\Api\Master\DiskonController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,6 +65,15 @@ Route::prefix('v1')->group(function () {
     Route::post('/promo', [PromoController::class, 'store'])->middleware(['web', 'auth.api:item_create']);
     Route::put('/promo', [PromoController::class, 'update'])->middleware(['web', 'auth.api:item_update']);
     Route::delete('/promo/{id}', [PromoController::class, 'destroy'])->middleware(['web', 'auth.api:item_delete']);
+
+     /**
+     * CRUD promo / produk
+     */
+    Route::get('/diskon', [DiskonController::class, 'index'])->middleware(['web', 'auth.api:item_view']);
+    Route::get('/diskon/{id}', [DiskonController::class, 'show'])->middleware(['web', 'auth.api:item_view']);
+    Route::post('/diskon', [DiskonController::class, 'store'])->middleware(['web', 'auth.api:item_create']);
+    Route::put('/diskon', [DiskonController::class, 'update'])->middleware(['web', 'auth.api:item_update']);
+    Route::delete('/diskon/{id}', [DiskonController::class, 'destroy'])->middleware(['web', 'auth.api:item_delete']);
 
     /**
      * Route khusus authentifikasi

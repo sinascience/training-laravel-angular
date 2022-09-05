@@ -2,7 +2,7 @@
 
 namespace App\Helpers\Master;
 
-use App\Models\Master\PromoModel;
+use App\Models\Master\DiskonModel;
 use App\Repository\CrudInterface;
 
 /**
@@ -11,13 +11,13 @@ use App\Repository\CrudInterface;
  *
  * @author Wahyu Agung <wahyuagung26@gmail.com>
  */
-class PromoHelper implements CrudInterface
+class DiskonHelper implements CrudInterface
 {
-    protected $promoModel;
+    protected $diskonModel;
 
     public function __construct()
     {
-        $this->promoModel = new PromoModel();
+        $this->diskonModel = new DiskonModel();
     }
 
     /**
@@ -35,7 +35,7 @@ class PromoHelper implements CrudInterface
      */
     public function getAll(array $filter, int $itemPerPage = 0, string $sort = ''): object
     {
-        return $this->promoModel->getAll($filter, $itemPerPage, $sort);
+        return $this->diskonModel->getAll($filter, $itemPerPage, $sort);
     }
 
     /**
@@ -46,7 +46,7 @@ class PromoHelper implements CrudInterface
      */
     public function getById(int $id): object
     {
-        return $this->promoModel->getById(($id));
+        return $this->diskonModel->getById(($id));
     }
 
     /**
@@ -64,33 +64,12 @@ class PromoHelper implements CrudInterface
     public function create(array $payload): array
     {
         try {
-            /**
-             * Jika dalam payload terdapat base64 foto, maka Upload foto ke folder storage/app/upload/fotoPromo
-             */
-            if (!empty($payload['foto'])) {
-                /**
-                 * Parameter kedua ("gcs") digunakan untuk upload ke Google Cloud Service
-                 * jika mau upload di server local, maka tidak usah pakai parameter kedua
-                 */
-                $foto = $payload['foto']->store('upload/fotoPromo');
-                $payload['foto'] = $foto;
-            }
 
-            // // Hapus detail dari payload karena tabel m_item tidak memiliki kolom "detail"
-            // $detailItem = $payload['detail'] ?? [];
-            // unset($payload['detail']);
-
-            $newPromo = $this->promoModel->store($payload);
-            
-            // // Simpan detail item
-            // if (!empty($detailItem)) {
-            //     $detail = new ItemDetHelper($newPromo);
-            //     $detail->create($detailItem);
-            // }
+            $newDiskon = $this->diskonModel->store($payload);
 
             return [
                 'status' => true,
-                'data' => $newPromo
+                'data' => $newDiskon
             ];
         } catch (\Throwable $th) {
             return [
@@ -116,31 +95,14 @@ class PromoHelper implements CrudInterface
     {
         try {
         
-            /**
-             * Jika dalam payload terdapat base64 foto, maka Upload foto ke folder storage/app/upload/fotoPromo
-             */
-            if (!empty($payload['foto'])) {
-                /**
-                 * Parameter kedua ("gcs") digunakan untuk upload ke Google Cloud Service, jika mau upload di server local, maka tidak usah pakai parameter kedua
-                 */
-                $foto = $payload['foto']->store('upload/fotoPromo');
-                $payload['foto'] = $foto;
-            } else {
-                unset($payload['foto']); // Jika foto kosong, hapus dari array agar tidak diupdate
-            }
 
-            $this->promoModel->edit($payload, $id);
-            $dataPromo = $this->getById($id);
+            $this->diskonModel->edit($payload, $id);
+            $dataDiskon = $this->getById($id);
 
-            // Simpan detail item
-            if (!empty($detailItem)) {
-                $detail = new ItemDetHelper($dataPromo);
-                $detail->update($detailItem);
-            }
 
             return [
                 'status' => true,
-                'data' => $dataPromo
+                'data' => $dataDiskon
             ];
         } catch (\Throwable $th) {
             return [
@@ -162,7 +124,7 @@ class PromoHelper implements CrudInterface
     public function delete(int $id): bool
     {
         try {
-            $this->promoModel->drop($id);
+            $this->diskonModel->drop($id);
             return true;
         } catch (\Throwable $th) {
             return false;

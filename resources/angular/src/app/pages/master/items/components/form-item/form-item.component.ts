@@ -38,7 +38,7 @@ export class FormItemComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        
+        this.emptyForm();
     }
     
     ngOnChanges(changes: SimpleChange) {

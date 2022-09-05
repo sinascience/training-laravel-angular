@@ -17,6 +17,7 @@ export class DaftarPromoComponent implements OnInit {
     dtOptions: any;
 
     listPromo: [];
+    titleCard: string;
     titleModal: string;
     modelId: number;
     isOpenForm: boolean = false;
@@ -32,12 +33,7 @@ export class DaftarPromoComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.createItem()
-    }
-
-    createItem() {
-        this.modelId = 0;
-        this.showForm(true);
+        this.getPromo();
     }
 
     showForm(show) {
@@ -60,7 +56,7 @@ export class DaftarPromoComponent implements OnInit {
             processing: true,
             ordering: false,
             searching: false,
-            pageLength: 5,
+            pageLength: 2,
             pagingType: "full_numbers",
             ajax: (dataTablesParameters: any, callback) => {
                 
@@ -113,19 +109,19 @@ export class DaftarPromoComponent implements OnInit {
         this.modalService.open(cari)
     }
 
-    createPromo(modal) {
-        this.titleModal = 'Tambah Promo';
+    createPromo() {
+        this.titleCard = 'Tambah Promo';
         this.modelId = 0;
-        this.modalService.open(modal, { size: 'lg', backdrop: 'static' });
+        this.showForm(true);
     }
 
-    updatePromo(modal, promoModel) {
-        this.titleModal = 'Edit Promo: ' + promoModel.nama;
+    updatePromo(promoModel) {
+        this.titleCard = 'Edit Promo: ' + promoModel.nama;
         this.modelId = promoModel.id;
-        this.modalService.open(modal, { size: 'lg', backdrop: 'static' });
+        this.showForm(true);
     }
 
-    deletePromo(userId) {
+    deletePromo(id) {   
         Swal.fire({
             title: 'Apakah kamu yakin ?',
             text: 'Promo tidak dapat melakukan pesanan setelah kamu menghapus datanya',
@@ -136,7 +132,7 @@ export class DaftarPromoComponent implements OnInit {
             confirmButtonText: 'Ya, Hapus data ini !',
         }).then((result) => {
             if (result.value) {
-                this.promoService.deletePromo(userId).subscribe((res: any) => {
+                this.promoService.deletePromo(id).subscribe((res: any) => {
                     this.landaService.alertSuccess('Berhasil', res.message);
                     this.getPromo();
                 }, err => {

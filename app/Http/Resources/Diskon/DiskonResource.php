@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Item;
+namespace App\Http\Resources\Diskon;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ItemResource extends JsonResource
+class DiskonResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +16,9 @@ class ItemResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'fotoUrl' => $this->fotoUrl(),
-            'nama' => $this->nama,
-            'deskripsi' => $this->deskripsi,
-            'kategori' => $this->kategori,
-            'harga' => $this->harga,
-            'is_available' => $this->is_available
+            'user_auth_id' => $this->user_auth_id,
+            'm_promo_id'=> $this->m_promo_id,
+            'status' => $this->status
         ];
     }
 }

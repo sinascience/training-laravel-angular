@@ -21,18 +21,18 @@
                             <tr>
                                 <td width="80"></td>
                                 <td>Nama</td>
-                                <td>Kategori</td>
-                                <td>Harga</td>
+                                <td class="text-center">Kategori</td>
+                                <td class="text-center">Harga</td>
                                 <td width="90"></td>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let val of listItems; index as i;">
                                 <td><img src="{{val.fotoUrl}}" class="rounded-circle" width="50px" height="50"></td>
-                                <td class="vertical-middle">{{val.nama}}</td>
-                                <td class="vertical-middle">{{val.kategori}}</td>
-                                <td class="vertical-middle">{{val.harga | currency: 'Rp. '}}</td>
-                                <td class="vertical-middle text-right">
+                                <td class="align-middle">{{val.nama}}</td>
+                                <td class="align-middle text-center">{{val.kategori}}</td>
+                                <td class="align-middle text-center">{{val.harga | currency: 'Rp. '}}</td>
+                                <td class="align-middle text-right">
                                     <a href="javascript: void(0);" class="align-middle mr-2" (click)="updateItem(val)" placement="left" container="body" ngbTooltip="Ubah">
                                         <i class="fa fa-edit font-size-14"></i>
                                     </a>

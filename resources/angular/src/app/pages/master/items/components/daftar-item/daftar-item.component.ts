@@ -23,6 +23,10 @@ export class DaftarItemComponent implements OnInit {
     modelId: number;
     isOpenForm: boolean = false;
 
+    offsetParams: any;
+    limitParams: any;
+    pageParams: any;
+
     constructor(
         private itemService: ItemService,
         private landaService: LandaService,
@@ -55,6 +59,10 @@ export class DaftarItemComponent implements OnInit {
                     limit: dataTablesParameters.length,
                     page: page,
                 };
+
+                this.offsetParams = params['offset'];
+                this.limitParams = params['limit'];
+                this.pageParams = params['page'];
                 
                 this.itemService.getItems(params).subscribe((res: any) => {
                     this.listItems = res.data.list;

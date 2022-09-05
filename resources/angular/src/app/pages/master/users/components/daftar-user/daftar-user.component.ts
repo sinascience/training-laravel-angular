@@ -80,10 +80,23 @@ export class DaftarUserComponent implements OnInit {
                         recordsFiltered: res.data.meta.total,
                         data: [],
                     });
-                }, (err: any) => {
+                }, (err: any) => { 
                     console.log(err);
                 });
             },
+
+            columns: [{
+                title: ''
+              }, {
+                title: 'Nama',
+                data: 'nama'
+              }, {
+                title: 'Email',
+                data: 'email'
+              }, {
+                title: 'Hak Akses',
+                data: 'akses'
+              }]
         };
     }
 

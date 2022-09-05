@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Concerns\HasRelationships;
 
-class PromoModel extends Model implements ModelInterface
+class DiskonModel extends Model implements ModelInterface
 {
     use SoftDeletes, RecordSignature, HasRelationships, HasFactory;
 
@@ -18,7 +18,7 @@ class PromoModel extends Model implements ModelInterface
     *
     * @var string
     */
-    protected $table = 'm_promo';
+    protected $table = 'm_diskon';
 
     /**
      * Menentukan primary key, jika nama kolom primary key adalah "id",
@@ -40,52 +40,49 @@ class PromoModel extends Model implements ModelInterface
     ];
 
     protected $fillable = [
-        'nama',
-        'type',
-        'diskon',
-        'nominal',
-        'syarat_ketentuan',
-        'foto',
-        'kadaluarsa',
+        'user_auth_id',
+        'm_promo_id',
+        'status',
     ];
 
     /**
-     * Relasi ke UserModelDet / tabel m_diskon
+     * Relasi ke UserModel / tabel user_auth
      *
      * @return void
      */
-    public function users()
+    public function user()
     {
-        return $this->belongsToMany(UserModel::class, 'm_diskon', 'user_auth_id', 'm_promo_id');
+        return $this->belongsTo(UserModel::class, 'user_auth_id', 'id');
     }
 
     /**
-     * Menampilkan foto user dalam bentuk URL
+     * Relasi ke PromoModel / tabel m_promo
      *
-     * @return string
+     * @return void
      */
-    public function fotoUrl() {
-        if(empty($this->foto)) {
-            return asset('assets/img/no-image.png');
-        } 
-
-        return asset('storage/' . $this->foto);
+    public function promo()
+    {
+        return $this->belongsTo(PromoModel::class, 'm_promo_id', 'id');
     }
+
     
     public function getAll(array $filter, int $itemPerPage = 0, string $sort = ''): object
     {
-        $dataPromo = $this->query();
+        $dataItem = $this->query();
 
-        if (!empty($filter['type'])) {
-            $dataPromo->where('type', $filter['type']);
+        if (!empty($filter['user_auth_id'])) {
+            $dataItem->where('user_auth_id', $filter['user_auth_id']);
         }
 
+        if (!empty($filter['m_promo_id'])) {
+            $dataItem->where('m_promo_id', $filter['m_promo_id']);
+        }
 
         $sort = $sort ?: 'id DESC';
-        $dataPromo->orderByRaw($sort);
+        $dataItem->orderByRaw($sort);
         $itemPerPage = $itemPerPage > 0 ? $itemPerPage : false;
 
-        return $dataPromo->paginate($itemPerPage)->appends('sort', $sort);
+        return $dataItem->paginate($itemPerPage)->appends('sort', $sort);
     }
 
     public function getById(int $id): object

@@ -4,19 +4,19 @@ namespace App\Http\Controllers\Api\Master;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Helpers\Master\PromoHelper;
-use App\Http\Resources\Promo\PromoResource;
-use App\Http\Resources\Promo\PromoCollection;
-use App\Http\Requests\Promo\CreateRequest;
-use App\Http\Requests\Promo\UpdateRequest;
+use App\Helpers\Master\DiskonHelper;
+use App\Http\Resources\Diskon\DiskonResource;
+use App\Http\Resources\Diskon\DiskonCollection;
+use App\Http\Requests\Diskon\CreateRequest;
+use App\Http\Requests\Diskon\UpdateRequest;
 
-class PromoController extends Controller
+class DiskonController extends Controller
 {
-    protected $item;
+    protected $diskon;
 
     public function __construct()
     {
-        $this->item = new PromoHelper;
+        $this->diskon = new DiskonHelper;
     }
 
     /**
@@ -27,12 +27,11 @@ class PromoController extends Controller
     public function index(Request $request)
     {
         $filter = [
-        'nama' => $request->nama ?? '',
-        'type' => $request->type ?? '',
-        'limit' => $request->limit ?? null];
-        $items = $this->item->getAll($filter, 100, $request->sort ?? '');
+        'user_auth_id' => $request->user_auth_id ?? null,
+        'm_promo_id' => $request->m_promo_id ?? null];
+        $items = $this->diskon->getAll($filter, 100, $request->sort ?? '');
 
-        return response()->success(new PromoCollection($items));
+        return response()->success(new DiskonCollection($items));
     }
 
     /**
@@ -51,14 +50,18 @@ class PromoController extends Controller
             return response()->failed($request->validator->errors(), 422);
         }
         
-        $dataInput = $request->only(['nama', 'type', 'diskon', 'foto', 'fotoUrl' ,'nominal', 'kadaluarsa', 'syarat_ketentuan']);
-        $dataPromo = $this->item->create($dataInput);
+        $dataInput = $request->only([
+            'user_auth_id',
+            'm_promo_id',
+            'status'
+        ]);
+        $dataDiskon = $this->diskon->create($dataInput);
         
-        if (!$dataPromo['status']) {
-            return response()->failed($dataPromo['error'], 422);
+        if (!$dataDiskon['status']) {
+            return response()->failed($dataDiskon['error'], 422);
         }
         
-        return response()->success(new PromoResource($dataPromo['data']), 'Data item berhasil disimpan');
+        return response()->success(new DiskonResource($dataDiskon['data']), 'Data item berhasil disimpan');
     }
 
     /**
@@ -69,13 +72,13 @@ class PromoController extends Controller
      */
     public function show($id)
     {
-        $dataPromo = $this->item->getById($id);
+        $dataDiskon = $this->diskon->getById($id);
 
-        if (empty($dataPromo)) {
+        if (empty($dataDiskon)) {
             return response()->failed(['Data item tidak ditemukan']);
         }
 
-        return response()->success(new PromoResource($dataPromo));
+        return response()->success(new DiskonResource($dataDiskon));
     }
 
     /**
@@ -95,14 +98,19 @@ class PromoController extends Controller
             return response()->failed($request->validator->errors());
         }
 
-        $dataInput = $request->only(['nama', 'type', 'diskon', 'foto', 'fotoUrl' ,'nominal', 'kadaluarsa', 'syarat_ketentuan', 'id']);
-        $dataPromo = $this->item->update($dataInput, $dataInput['id']);
+        $dataInput = $request->only([
+            'user_auth_id',
+            'm_promo_id',
+            'status',
+            'id'
+        ]);
+        $dataDiskon = $this->diskon->update($dataInput, $dataInput['id']);
         
-        if (!$dataPromo['status']) {
-            return response()->failed($dataPromo['error']);
+        if (!$dataDiskon['status']) {
+            return response()->failed($dataDiskon['error']);
         }
 
-        return response()->success(new PromoResource($dataPromo['data']), 'Data item berhasil disimpan');
+        return response()->success(new DiskonResource($dataDiskon['data']), 'Data item berhasil disimpan');
     }
 
     /**
@@ -113,12 +121,12 @@ class PromoController extends Controller
      */
     public function destroy($id)
     {
-        $dataPromo = $this->item->delete($id);
+        $dataDiskon = $this->diskon->delete($id);
 
-        if (!$dataPromo) {
+        if (!$dataDiskon) {
             return response()->failed(['Mohon maaf data item tidak ditemukan']);
         }
 
-        return response()->success($dataPromo);
+        return response()->success($dataDiskon);
     }
 }

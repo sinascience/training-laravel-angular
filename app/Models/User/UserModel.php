@@ -59,6 +59,16 @@ class UserModel extends Authenticatable implements JWTSubject, ModelInterface
     ];
 
     /**
+     * Relasi ke PromoModelDet / tabel m_diskon
+     *
+     * @return void
+     */
+    public function promos()
+    {
+        return $this->belongsToMany(PromoModel::class, 'm_diskon', 'm_promo_id', 'user_auth_id');
+    }
+
+    /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
      * @return mixed
