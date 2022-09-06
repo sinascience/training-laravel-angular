@@ -87,9 +87,9 @@ export class DaftarItemComponent implements OnInit {
         let filter = e.target.value;
         const params = {
             filter: JSON.stringify({}),
-            offset: 0,
-            limit: 5,
-            page: 1,
+            offset: this.offsetParams,
+            limit: this.limitParams,
+            page: this.pageParams,
             nama: filter,
         };
         this.itemService.getItems(params).subscribe((res: any) => {

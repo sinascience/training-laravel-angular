@@ -10,6 +10,7 @@ import {DiskonService } from '../../services/diskon.service';
 export class FormDiskonComponent implements OnInit {
     @Input() user: number;
     @Input() promo: number;
+    
 
     mode: string;
 

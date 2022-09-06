@@ -1,0 +1,77 @@
+<form>
+    <div class="form-group row">
+        <label class="col-md-4 required">Customer</label>
+        <div class="col-md-8">
+            <ng-select
+                [(ngModel)]="formModel.customer"
+                [items]="listCustomer"
+                bindLabel="nama"
+                placeholder="Pilih Customer"
+                name="customer"
+                appendTo="body"
+            ></ng-select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 required">Voucher</label>
+        <div class="col-md-8">
+            <ng-select
+                [(ngModel)]="formModel.promo"
+                [items]="listPromo"
+                bindLabel="nama"
+                placeholder="Pilih Voucher"
+                name="promo"
+                appendTo="body"
+            ></ng-select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4 required">Jumlah Voucher</label>
+        <div class="col-md-8">
+            <input
+                [(ngModel)]="formModel.jumlah"
+                type="number"
+                name="voucher"
+                class="form-control"
+                placeholder="Jumlah Voucher"
+            />
+        </div>
+    </div>
+    <div class="from-group row mb-3">
+        <label for="status" class="form-label col-md-4 f-label"
+            >Status Voucher</label
+        >
+        <div class="col-md-8">
+            <div class="input-group">
+                <div class="input-group-text" style="padding: 0">
+                    <div class="btn-group" role="group">
+                        <button
+                            type="button"
+                            class="btn btn-primary filter"
+                            (click)="changeStatus(true)"
+                            [ngClass]="{ active: formModel.status == true }"
+                        >
+                            Aktif
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-primary filter"
+                            (click)="changeStatus(false)"
+                            [ngClass]="{ active: formModel.status == false }"
+                        >
+                            Nonaktif
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-4"></label>
+        <div class="col-md-8">
+            <button type="submit" class="btn btn-primary" (click)="save()">
+                Simpan
+            </button>
+        </div>
+    </div>
+</form>

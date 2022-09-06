@@ -25,11 +25,13 @@ import { DaftarDiskonComponent } from './diskon/components/daftar-diskon/daftar-
 import { FormDiskonComponent } from './diskon/components/form-diskon/form-diskon.component';
 import { UserProfileComponent } from './profile/components/user-profile/user-profile.component';
 import { FormProfileComponent } from './profile/components/form-user/form-profile.component';
+import { DaftarVoucherComponent } from './vouchers/components/daftar-voucher/daftar-voucher.component';
+import { FormVoucherComponent } from './vouchers/components/form-voucher/form-voucher.component';
 
 
 
 @NgModule({
-    declarations: [DaftarDiskonComponent, DaftarUserComponent, FormUserComponent, DaftarRolesComponent, FormRolesComponent, DaftarCustomerComponent, FormCustomerComponent, FormItemComponent, DaftarItemComponent, UserProfileComponent, FormProfileComponent, DaftarPromoComponent, FormPromoComponent, FormDiskonComponent ],
+    declarations: [DaftarDiskonComponent, DaftarUserComponent, FormUserComponent, DaftarRolesComponent, FormRolesComponent, DaftarCustomerComponent, FormCustomerComponent, FormItemComponent, DaftarItemComponent, UserProfileComponent, FormProfileComponent, DaftarPromoComponent, FormPromoComponent, FormDiskonComponent, DaftarVoucherComponent, FormVoucherComponent ],
     imports: [
         CommonModule,
         MasterRoutingModule,

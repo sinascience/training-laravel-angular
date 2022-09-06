@@ -6,6 +6,7 @@ import { DaftarRolesComponent } from './roles/components/daftar-roles/daftar-rol
 import { DaftarUserComponent } from './users/components/daftar-user/daftar-user.component';
 import { DaftarPromoComponent } from './promo/components/daftar-promo/daftar-promo.component';
 import { DaftarDiskonComponent } from './diskon/components/daftar-diskon/daftar-diskon.component';
+import { DaftarVoucherComponent } from './vouchers/components/daftar-voucher/daftar-voucher.component';
 import { UserProfileComponent } from './profile/components/user-profile/user-profile.component';
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
     { path: 'profile', component: UserProfileComponent },
     { path: 'promo', component: DaftarPromoComponent },
     { path: 'diskon', component: DaftarDiskonComponent },
+    { path: 'voucher', component: DaftarVoucherComponent },
 ];
 
 @NgModule({

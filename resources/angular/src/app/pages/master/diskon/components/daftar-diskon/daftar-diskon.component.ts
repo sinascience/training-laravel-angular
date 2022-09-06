@@ -27,17 +27,20 @@ export class DaftarDiskonComponent implements OnInit {
         status: number
     }
 
-    diskon: [];
-    diskonId: any;
-    listDiskon: [];
-    listUser: [];
-    listPromo: [];
+    listDiskon: any;
+    listUser: any;
+    listPromo: any;
+    listTotal: any;
     titleCard: string;
     titleModal: string;
     modelId: number;
     columns: any;
     isCome: boolean;
+    isCome2: boolean;
     checked: boolean;
+    offset: number;
+    footerTotal: any
+
     
 
     offsetParams: any;
@@ -51,6 +54,18 @@ export class DaftarDiskonComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        this.isCome = false;
+        this.isCome2 = false;
+
+
+        this.diskonService.getDiskons({}).subscribe((res: any) => {
+            this.listDiskon = res.data.list;
+            
+        
+        }, (err: any) => {
+            console.log(err);
+        });
+
         this.columns = [{
             title: 'No',
           }, {
@@ -58,8 +73,9 @@ export class DaftarDiskonComponent implements OnInit {
             data: 'firstName'
           }]
         
-        this.isCome = false;
+
         this.getDiskon();
+
     }
 
     ngOnChanges(changes: SimpleChange) {
@@ -75,10 +91,36 @@ export class DaftarDiskonComponent implements OnInit {
         });
     }
 
+    check(val, col) {
+
+        let bool: boolean;
+
+        let getDiskon: any;
+        getDiskon = this.listDiskon.find(diskon => diskon.user_auth_id == val && diskon.m_promo_id == col);
+
+        if(getDiskon === undefined) {
+            bool = false
+        } else {
+            if(getDiskon.status == 1) {
+                bool = true
+            } else {
+                bool = false
+            }
+        }
+
+        return bool;
+    }
+
+    log(log) {
+        console.log(log)
+    }
+
     getDiskon() {
+        
 
         this.diskonService.getPromos({type: 'diskon'}).subscribe((res: any) => {
             this.listPromo = res.data.list;
+            
             this.isCome = true;
 
         }, (err: any) => {
@@ -90,7 +132,7 @@ export class DaftarDiskonComponent implements OnInit {
             processing: true,
             ordering: false,
             searching: false,
-            pageLength: 5,
+            pageLength: 3,
             pagingType: "full_numbers",
             ajax: (dataTablesParameters: any, callback) => {
                 
@@ -106,9 +148,21 @@ export class DaftarDiskonComponent implements OnInit {
                 this.offsetParams = params['offset'];
                 this.limitParams = params['limit'];
                 this.pageParams = params['page'];
+                this.offset =  params['offset'];
 
                 this.diskonService.getUsers(params).subscribe((res: any) => {
                     this.listUser = res.data.list;
+                    this.footerTotal = []
+                    for(let promo of this.listPromo) {
+                        this.footerTotal[promo.id] = 0
+                        for(let diskon of this.listDiskon) {
+                            for(let user of this.listUser) {
+                            if(promo.id == diskon.m_promo_id && user.id == diskon.user_auth_id && diskon.status == 1) {
+                                this.footerTotal[promo.id]++
+                            }
+                        }}
+                    }
+
 
                     callback({
                         recordsTotal: res.data.meta.total,
@@ -121,7 +175,6 @@ export class DaftarDiskonComponent implements OnInit {
 
                 
             },
-            columns: this.columns
         };
     }   
 
@@ -149,13 +202,12 @@ export class DaftarDiskonComponent implements OnInit {
     save() {
         if(this.mode == 'add') {
             this.diskonService.createDiskon(this.formModel).subscribe((res : any) => {
-                this.landaService.alertSuccess('Berhasil', res.message);
+                
             }, err => {
                 this.landaService.alertError('Mohon Maaf', err.error.errors);
             });
         } else {
             this.diskonService.updateDiskon(this.formModel).subscribe((res : any) => {
-                this.landaService.alertSuccess('Berhasil', res.message);
             }, err => {
                 this.landaService.alertError('Mohon Maaf', err.error.errors);
             });
@@ -210,7 +262,7 @@ export class DaftarDiskonComponent implements OnInit {
             console.log(err);
         });
 
-        
+        return this.checked
     }
 
     checkCheckBoxvalue(event, value, columns){
@@ -219,8 +271,10 @@ export class DaftarDiskonComponent implements OnInit {
 
     if(event.target.checked) {
         trueFalse = 1
+        this.footerTotal[columns]++
     } else {
         trueFalse = 0
+        this.footerTotal[columns]--
     }
 
     const parameters = {
@@ -240,6 +294,8 @@ export class DaftarDiskonComponent implements OnInit {
                 m_promo_id: columns,
                 status: trueFalse
             }
+
+        
             this.save()
 
         } else {
