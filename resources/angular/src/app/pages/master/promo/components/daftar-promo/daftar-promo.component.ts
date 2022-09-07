@@ -56,7 +56,7 @@ export class DaftarPromoComponent implements OnInit {
             processing: true,
             ordering: false,
             searching: false,
-            pageLength: 2,
+            pageLength: 20,
             pagingType: "full_numbers",
             ajax: (dataTablesParameters: any, callback) => {
                 

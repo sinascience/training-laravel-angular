@@ -30,7 +30,7 @@ class PromoController extends Controller
         'nama' => $request->nama ?? '',
         'type' => $request->type ?? '',
         'limit' => $request->limit ?? null];
-        $items = $this->item->getAll($filter, 100, $request->sort ?? '');
+        $items = $this->item->getAll($filter, $filter['limit'], $request->sort ?? '');
 
         return response()->success(new PromoCollection($items));
     }

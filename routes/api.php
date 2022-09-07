@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Master\ItemController;
 use App\Http\Controllers\Api\Master\PromoController;
 use App\Http\Controllers\Api\Master\DiskonController;
 use App\Http\Controllers\Api\Master\VoucherController;
+use App\Http\Controllers\Api\Rekap\RekapMenuController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -84,6 +85,12 @@ Route::prefix('v1')->group(function () {
     Route::post('/voucher', [VoucherController::class, 'store'])->middleware(['web', 'auth.api:item_create']);
     Route::put('/voucher', [VoucherController::class, 'update'])->middleware(['web', 'auth.api:item_update']);
     Route::delete('/voucher/{id}', [VoucherController::class, 'destroy'])->middleware(['web', 'auth.api:item_delete']);
+
+     /**
+     * SHOW order
+     */
+    Route::get('/rekap-menu', [RekapMenuController::class, 'index'])->middleware(['web', 'auth.api:item_view']);
+    Route::get('/rekap-menu/{id}', [RekapMenuController::class, 'show'])->middleware(['web', 'auth.api:item_view']);
 
     /**
      * Route khusus authentifikasi

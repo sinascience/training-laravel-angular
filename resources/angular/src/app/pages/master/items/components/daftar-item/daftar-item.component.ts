@@ -47,7 +47,7 @@ export class DaftarItemComponent implements OnInit {
             processing: true,
             ordering: false,
             searching: false,
-            pageLength: 5,
+            pageLength: 20,
             pagingType: "full_numbers",
             ajax: (dataTablesParameters: any, callback) => {
                 

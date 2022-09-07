@@ -118,7 +118,7 @@ export class DaftarDiskonComponent implements OnInit {
     getDiskon() {
         
 
-        this.diskonService.getPromos({type: 'diskon'}).subscribe((res: any) => {
+        this.diskonService.getPromos({type: 'diskon', limit: 0}).subscribe((res: any) => {
             this.listPromo = res.data.list;
             
             this.isCome = true;
@@ -132,7 +132,7 @@ export class DaftarDiskonComponent implements OnInit {
             processing: true,
             ordering: false,
             searching: false,
-            pageLength: 3,
+            pageLength: 10,
             pagingType: "full_numbers",
             ajax: (dataTablesParameters: any, callback) => {
                 

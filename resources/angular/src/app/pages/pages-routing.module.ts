@@ -8,6 +8,7 @@ const routes: Routes = [
     { path: '', redirectTo: 'home' },
     { path: 'home', component: DashboardComponent },
     { path: 'master', loadChildren: () => import('./master/master.module').then(m => m.MasterModule) },
+    { path: 'rekap', loadChildren: () => import('./rekap/rekap.module').then(m => m.RekapModule) },
 ];
 
 @NgModule({
