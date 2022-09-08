@@ -20,19 +20,16 @@ class RekapMenuHelper implements RekapInterface
         $this->rekapMenuModel = new RekapMenuModel();
     }
 
-    /**
-     * Mengambil data item dari tabel m_item
-     *
-     * @author Wahyu Agung <wahyuagung26@gmail.com>
-     *
-     * @param  array $filter
-     * $filter['nama'] = string
-     * $filter['email'] = string
-     * @param integer $itemPerPage jumlah data yang tampil dalam 1 halaman, kosongi jika ingin menampilkan semua data
-     * @param string $sort nama kolom untuk melakukan sorting mysql beserta tipenya DESC / ASC
-     *
-     * @return object
-     */
+    public function queryLaporan($month, $year, $cust, $menu)
+    {
+        return $this->rekapMenuModel->queryLaporan($month, $year, $cust, $menu);
+    }
+
+    public function queryLaporanCustomer($month, $year, $cust)
+    {
+        return $this->rekapMenuModel->queryLaporanCustomer($month, $year, $cust);
+    }
+
     public function queryLaporanMenu($month, $year)
     {
         return $this->rekapMenuModel->queryLaporanMenu($month, $year);

@@ -6,43 +6,38 @@
                     <div class="header-tabeldiv">
                         <div class="row mb-3">
                             <div class="col-9">
-                                <h2 class="text-capitalize fw-bold m-0 heading-judul">Rekap penjualan menu</h2>
+                                <h2 class="text-capitalize fw-bold m-0 heading-judul">Rekap Penjualan Customer</h2>
                             </div>
                         </div>
                     </div>
                     <div class="card dashboard">
                         <div class="card-body">
                             <div class="row mt-2">
-                                <div class="col-8">
+                                <div class="col-2">
                                     <div class="p-2" style="padding-bottom: 10px!important;">
                                         <form class="form-horizontal ng-untouched ng-pristine ng-invalid">
-                                            <div class="form-group mb-3" style="width: 50%;"><label class="form-label f-label" for="email">Periode</label>
-                                                <div class="input-group" style="width: 77%;">
-                                                    <input class="form-control" name="month" type="month" [ngModel] ="month | date:'yyyy-MM'" (ngModelChange)="month = $event" [ngModelOptions]="{standalone: true}" (change)="getItem()"></div>
+                                            <div class="form-group mb-3"><label class="form-label f-label" for="email">Periode</label>
+                                                <div class="input-group"><input class="form-control" name="month" type="month" [ngModel] ="month | date:'yyyy-MM'" (ngModelChange)="month = $event" [ngModelOptions]="{standalone: true}" (change)="getItem()"></div>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
-                                <div class="col-4 text-end d-lg-flex d-xl-flex d-xxl-flex justify-content-lg-end justify-content-xl-end justify-content-xxl-end" style="border-bottom-color: #2e2e2e;">
-                                    <div class="form-group mb-3"><label class="form-label f-label" for="email">Kategori</label>
-                                        <div class="input-group">
-                                            <div class="input-group-text" style="padding: 0px;">
-                                                <div class="btn-group" role="group">
-                                                    <button class="btn btn-primary filter" type="button" (click)="mode = 'all'">All</button>
-                                                    <button class="btn btn-primary filter" type="button" (click)="mode = 'food'">Makanan</button>
-                                                    <button class="btn btn-primary filter" type="button" (click)="mode = 'drink'">Minuman</button>
-                                                    <button class="btn btn-primary filter" type="button" (click)="mode = 'snack'">Snack</button></div>
-                                            </div>
+                                <div class="col-2" style="border-bottom-color: #2e2e2e;">
+                                    <div class="p-2">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label f-label" for="email">Customer</label>
+                                            <select class="form-control" style="width: 100%;" (change)="getItemCust($event.target.value)">
+                                                <option value="" selected>Select Customer</option>
+                                                <option *ngFor="let customer of namaCustomer" [value]="customer">{{ customer }}</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 d-xl-flex d-xxl-flex m-auto justify-content-xl-center justify-content-xxl-center">
-                                    <div class="form-group mb-0">
-                                        <div class="input-group d-lg-flex d-xxl-flex justify-content-lg-center justify-content-xxl-start">
+                                <div class="col-8 m-auto">
+                                    <div class="form-group mb-0" style="margin-top: 1.4rem;">
+                                        <div class="input-group d-lg-flex d-xl-flex justify-content-lg-end justify-content-xl-end justify-content-xxl-end">
                                             <div class="input-group-text" style="padding: 0px;">
-                                                <div class="btn-group" role="group">
-                                                    <button class="btn btn-primary text-capitalize filter2 active" type="button">Tampilkan&nbsp;</button>
-                                                    <button class="btn btn-primary text-capitalize filter2" type="button" (click)="consol(month)">Excel</button></div>
+                                                <div class="btn-group" role="group"><button class="btn btn-primary text-capitalize filter2 active" type="button">Tampilkan&nbsp;</button><button class="btn btn-primary text-capitalize filter2" type="button">Excel</button></div>
                                             </div>
                                         </div>
                                     </div>
@@ -52,161 +47,28 @@
 <table class="table table-hover table-bordered" >
     <thead style="background: #009aad; color: white">
         <tr align="center">
-            <th rowspan="2" class='align-middle'>Menu</th>
+            <th rowspan="2" class='align-middle'>No</th>
+            <th rowspan="2" class='align-middle'>Customer</th>
             <th colspan="31" class='text-center'>Periode: {{ month | date: 'MMMM yyyy' }}</th>
-            <th rowspan="2" class='align-middle'>Total</th>
+            <th rowspan="2" colspan="2" class='align-middle'>Total</th>
         </tr>
         <tr align="center" style="font-size: 13px">
             <th class='no-tr' *ngFor="let i of date">{{ i }}</th>
         </tr>
     </thead>
     <tbody *ngIf="data">
-        <!-- <tr style="background:#fbfbfb">
-            <td class="tabel-periode" style="font-weight: 700">GRAND TOTAL</td>
-            <td style="font-weight: 700" align="right">2.000.000</td>
-            <td style="font-weight: 700" align="right">1.750.000</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td align="right" style="font-weight: 700">1.750.000</td>
-        </tr> -->
-        <ng-container *ngIf="mode == 'all' || mode == 'food'">
-        <tr style="background:#eee; color:#2e2e2e">
-            <td colspan="33" class="tabel-penjualanperiode" >Food</td>
+        <tr style="background:#fbfbfb">
+            <td class="tabel-periode" colspan="2" style="font-weight: 700">GRAND TOTAL</td>
+            <td style="font-weight: 700" align="right" *ngFor="let i of date">{{ grandTotal[i] | currency:'':'':'0.0-0'}}</td>
+            <td colspan="2" align="right" style="font-weight: 700">{{ totalCustomer  | currency: 'Rp. '}}</td>
         </tr>
-        <tr *ngFor="let food of listFood">
-            <td>{{ food.nama }}</td>
-            <td align="right">{{ food.tgl1 }}</td>
-            <td align="right">{{ food.tgl2 }}</td>
-            <td align="right">{{ food.tgl3 }}</td>
-            <td align="right">{{ food.tgl4 }}</td>
-            <td align="right">{{ food.tgl5 }}</td>
-            <td align="right">{{ food.tgl6 }}</td>
-            <td align="right">{{ food.tgl7 }}</td>
-            <td align="right">{{ food.tgl8 }}</td>
-            <td align="right">{{ food.tgl9 }}</td>
-            <td align="right">{{ food.tgl10 }}</td>
-            <td align="right">{{ food.tgl11 }}</td>
-            <td align="right">{{ food.tgl12 }}</td>
-            <td align="right">{{ food.tgl13 }}</td>
-            <td align="right">{{ food.tgl14 }}</td>
-            <td align="right">{{ food.tgl15 }}</td>
-            <td align="right">{{ food.tgl16 }}</td>
-            <td align="right">{{ food.tgl17 }}</td>
-            <td align="right">{{ food.tgl18 }}</td>
-            <td align="right">{{ food.tgl19 }}</td>
-            <td align="right">{{ food.tgl20 }}</td>
-            <td align="right">{{ food.tgl21 }}</td>
-            <td align="right">{{ food.tgl22 }}</td>
-            <td align="right">{{ food.tgl23 }}</td>
-            <td align="right">{{ food.tgl24 }}</td>
-            <td align="right">{{ food.tgl25 }}</td>
-            <td align="right">{{ food.tgl26 }}</td>
-            <td align="right">{{ food.tgl27 }}</td>
-            <td align="right">{{ food.tgl28 }}</td>
-            <td align="right">{{ food.tgl29 }}</td>
-            <td align="right">{{ food.tgl30 }}</td>
-            <td align="right">{{ food.tgl31 }}</td>
-            <td align="right">{{ food.total | currency: 'Rp. '}}</td>
-        </tr>
-        <tr style='background: #fbfbfb'>
-            <td class="tabel-periode">Total Food</td>
-            <td colspan="31"></td>
-            <td align="right" style='font-weight: 800'>{{ totalFood  | currency: 'Rp. '}}</td>
-        </tr>
-        </ng-container>
-        <ng-container *ngIf="mode == 'all' || mode == 'drink'">
-        <tr style="background:#eee; color:#2e2e2e">
-            <td colspan="33" class="tabel-penjualanperiode">Drink</td>
-        </tr>
-        <tr *ngFor="let Drink of listDrink">
-            <td>{{ Drink.nama }}</td>
-            <td align="right">{{ Drink.tgl1 }}</td>
-            <td align="right">{{ Drink.tgl2 }}</td>
-            <td align="right">{{ Drink.tgl3 }}</td>
-            <td align="right">{{ Drink.tgl4 }}</td>
-            <td align="right">{{ Drink.tgl5 }}</td>
-            <td align="right">{{ Drink.tgl6 }}</td>
-            <td align="right">{{ Drink.tgl7 }}</td>
-            <td align="right">{{ Drink.tgl8 }}</td>
-            <td align="right">{{ Drink.tgl9 }}</td>
-            <td align="right">{{ Drink.tgl10 }}</td>
-            <td align="right">{{ Drink.tgl11 }}</td>
-            <td align="right">{{ Drink.tgl12 }}</td>
-            <td align="right">{{ Drink.tgl13 }}</td>
-            <td align="right">{{ Drink.tgl14 }}</td>
-            <td align="right">{{ Drink.tgl15 }}</td>
-            <td align="right">{{ Drink.tgl16 }}</td>
-            <td align="right">{{ Drink.tgl17 }}</td>
-            <td align="right">{{ Drink.tgl18 }}</td>
-            <td align="right">{{ Drink.tgl19 }}</td>
-            <td align="right">{{ Drink.tgl20 }}</td>
-            <td align="right">{{ Drink.tgl21 }}</td>
-            <td align="right">{{ Drink.tgl22 }}</td>
-            <td align="right">{{ Drink.tgl23 }}</td>
-            <td align="right">{{ Drink.tgl24 }}</td>
-            <td align="right">{{ Drink.tgl25 }}</td>
-            <td align="right">{{ Drink.tgl26 }}</td>
-            <td align="right">{{ Drink.tgl27 }}</td>
-            <td align="right">{{ Drink.tgl28 }}</td>
-            <td align="right">{{ Drink.tgl29 }}</td>
-            <td align="right">{{ Drink.tgl30 }}</td>
-            <td align="right">{{ Drink.tgl31 }}</td>
-            <td align="right">{{ Drink.total | currency: 'Rp. '}}</td>
-        </tr>
-        <tr style='background: #fbfbfb'>
-            <td class="tabel-periode">Total Drink</td>
-            <td colspan="31"></td>
-            <td align="right" style='font-weight: 800'>{{ totalDrink | currency: 'Rp. ' }}</td>
-        </tr>
-        </ng-container>
-        <ng-container *ngIf="mode == 'all' || mode == 'snack'">
-        <tr style="background:#eee; color:#2e2e2e">
-            <td colspan="33" class="tabel-penjualanperiode">Snack</td>
-        </tr>
-        <tr *ngFor="let Snack of listSnack">
-            <td>{{ Snack.nama }}</td>
-            <td align="right">{{ Snack.tgl1 }}</td>
-            <td align="right">{{ Snack.tgl2 }}</td>
-            <td align="right">{{ Snack.tgl3 }}</td>
-            <td align="right">{{ Snack.tgl4 }}</td>
-            <td align="right">{{ Snack.tgl5 }}</td>
-            <td align="right">{{ Snack.tgl6 }}</td>
-            <td align="right">{{ Snack.tgl7 }}</td>
-            <td align="right">{{ Snack.tgl8 }}</td>
-            <td align="right">{{ Snack.tgl9 }}</td>
-            <td align="right">{{ Snack.tgl10 }}</td>
-            <td align="right">{{ Snack.tgl11 }}</td>
-            <td align="right">{{ Snack.tgl12 }}</td>
-            <td align="right">{{ Snack.tgl13 }}</td>
-            <td align="right">{{ Snack.tgl14 }}</td>
-            <td align="right">{{ Snack.tgl15 }}</td>
-            <td align="right">{{ Snack.tgl16 }}</td>
-            <td align="right">{{ Snack.tgl17 }}</td>
-            <td align="right">{{ Snack.tgl18 }}</td>
-            <td align="right">{{ Snack.tgl19 }}</td>
-            <td align="right">{{ Snack.tgl20 }}</td>
-            <td align="right">{{ Snack.tgl21 }}</td>
-            <td align="right">{{ Snack.tgl22 }}</td>
-            <td align="right">{{ Snack.tgl23 }}</td>
-            <td align="right">{{ Snack.tgl24 }}</td>
-            <td align="right">{{ Snack.tgl25 }}</td>
-            <td align="right">{{ Snack.tgl26 }}</td>
-            <td align="right">{{ Snack.tgl27 }}</td>
-            <td align="right">{{ Snack.tgl28 }}</td>
-            <td align="right">{{ Snack.tgl29 }}</td>
-            <td align="right">{{ Snack.tgl30 }}</td>
-            <td align="right">{{ Snack.tgl31 }}</td>
-            <td align="right">{{ Snack.total | currency: 'Rp. '}}</td>
-        </tr>
-        <tr style='background: #fbfbfb'>
-            <td class="tabel-periode">Total Snack</td>
-            <td colspan="31"></td>
-            <td align="right" style='font-weight: 800'>{{ totalSnack | currency: 'Rp. ' }}</td>
-        </tr>
+        <ng-container>
+            <tr *ngFor="let cust of listCustomer, index as i">
+                <td>{{ i + 1 }}</td>
+                <td>{{ cust.nama }}</td>
+                <th align="right" *ngFor="let i of date">{{ cust.tanggal[i - 1] | currency:'':'':'0.0-0'}}</th>
+                <td align="right">{{ cust.total | currency: 'Rp. '}}</td>
+            </tr>
         </ng-container>
     </tbody>
     <tfoot *ngIf="!data">

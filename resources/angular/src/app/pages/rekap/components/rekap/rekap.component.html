@@ -1,0 +1,116 @@
+<section id="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-xl-12">
+                <div class="div-form" style="/*padding: 0px 50px 0px 50px;*/padding-bottom: 0px;">
+                    <div class="header-tabeldiv">
+                        <div class="row mb-3">
+                            <div class="col-9">
+                                <h2 class="text-capitalize fw-bold m-0 heading-judul">Rekap Penjualan</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card dashboard">
+                        <div class="card-body">
+                            <div class="row mt-2">
+                                <div class="col-4">
+                                    <div class="p-2" style="padding-bottom: 10px!important;">
+                                        <form class="form-horizontal ng-untouched ng-pristine ng-invalid">
+                                            <div class="form-group mb-3"><label class="form-label f-label" for="email">Periode</label>
+                                                <div class="input-group"><input class="form-control" name="month" type="month" [ngModel] ="month | date:'yyyy-MM'" (ngModelChange)="month = $event" [ngModelOptions]="{standalone: true}" (change)="getItem()"></div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-4" style="border-bottom-color: #2e2e2e;">
+                                    <div class="p-2">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label f-label" for="email">Customer</label>
+                                            <select class="form-control" style="width: 100%;" (change)="getItemCust($event.target.value)">
+                                                <option value="" selected>Select Customer</option>
+                                                <option *ngFor="let customer of namaCustomer.sort()" [value]="customer">{{ customer }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4 m-auto">
+                                    <div class="p-2">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label f-label" for="email">Customer</label>
+                                            <select class="form-control" style="width: 100%;" (change)="getItemMenu($event.target.value)">
+                                                <option value="" selected>Select Menu</option>
+                                                <option *ngFor="let menu of ListNamaMenu.sort()" [value]="menu">{{ menu }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <hr><div class="table-responsive">
+<table class="table table-hover table-bordered" >
+    <thead style="background: #009aad; color: white">
+        <tr align="center">
+            <th rowspan="2" class="align-middle" style="width: 4%">No</th>
+            <th rowspan="2" class="align-middle">No Struk</th>
+            <th rowspan="2" class="align-middle">Customer</th>
+            <th rowspan="2" class="align-middle">Tanggal</th>
+            <th rowspan="2" class="align-middle">Menu</th>
+            <th rowspan="2" class="align-middle">Jumlah</th>
+            <th rowspan="2" class="align-middle">Harga</th>
+            <th rowspan="2" class="align-middle">Total</th>
+            <th colspan="2" class="align-middle">Promo</th>
+            <th rowspan="2" class="align-middle">Total Bayar</th>
+        </tr>
+        <tr align="center">
+            <th>Diskon</th>
+            <th>Voucher</th>
+        </tr>
+    </thead>
+    <tbody *ngIf="data">
+        <ng-container *ngFor="let rekap of listRekap, index as i">
+            <tr align="center">
+                <td [attr.rowspan]="rekap.menu.length" class="align-middle">{{ i + 1 }}</td>
+                <td [attr.rowspan]="rekap.menu.length" class="align-middle">{{ rekap.no_struk }}</td>
+                <td [attr.rowspan]="rekap.menu.length" class="align-middle">{{ rekap.customer }}</td>
+                <td [attr.rowspan]="rekap.menu.length" class="align-middle">{{ rekap.tanggal }}</td>
+                <td>{{ rekap.menu[0] }}</td>
+                <td>{{ rekap.jumlah[0] }}</td>
+                <td align="right">{{ rekap.harga[0] | currency:'Rp. '}}</td>
+                <td align="right">{{ rekap.total[0] | currency:'Rp. '}}</td>
+                <td [attr.rowspan]="rekap.menu.length" class="align-middle" align="right" *ngIf="rekap.diskon !== 0">{{ diskon(rekap.total_order, rekap.diskon) | currency:'Rp. '}} ({{ rekap.diskon }}%)</td>
+                <td [attr.rowspan]="rekap.menu.length" class="align-middle" align="right" *ngIf="rekap.diskon == 0"></td>
+                <td [attr.rowspan]="rekap.menu.length" class="align-middle">-</td>
+                <td [attr.rowspan]="rekap.menu.length" class="align-middle" align="right">{{ voucher(rekap.total_order, rekap.diskon) | currency:'Rp. '}}</td>
+            </tr>
+            <ng-container *ngFor="let menu of rekap.menu; let i= index;">
+            <tr align="center" *ngIf="i!=0">
+                <td>{{ menu }}</td>
+                <td>{{ rekap.jumlah[i] }}</td>
+                <td align="right">{{ rekap.harga[i] | currency:'Rp. '}}</td>
+                <td align="right">{{ rekap.total[i] | currency:'Rp. '}}</td>
+            </tr>
+            </ng-container>
+        </ng-container>
+        <tr style="background: #009aad; color: #ffff">
+            <td colspan="7" align="center" style="font-weight: 700">Grand Total</td>
+            <td align="right" style="font-weight: 700">{{ total | currency:'Rp. '}}</td>
+            <td align="right" style="font-weight: 700">{{ diskons | currency:'Rp. '}}</td>
+            <td align="right" style="font-weight: 700">-</td>
+            <td align="right" style="font-weight: 700">{{ grandTotal | currency:'Rp. '}}</td>
+        </tr>
+    </tbody>
+    <tfoot *ngIf="!data">
+        <tr align="center">
+            <th colspan="33" class='text-center'>Data not found</th>
+        </tr>
+    </tfoot>
+</table>
+</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

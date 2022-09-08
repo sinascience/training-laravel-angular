@@ -12,8 +12,11 @@ export class RekapService {
         return this.landaService.DataGet('/v1/rekap-menu', arrParameter);
     }
 
-    getItemById(itemId) {
-        return this.landaService.DataGet('/v1/items/' + itemId);
+    getRekapCustomer(arrParameter) {
+        return this.landaService.DataGet('/v1/rekap-customer', arrParameter);
     }
 
+    getRekap(arrParameter) {
+        return this.landaService.DataGet('/v1/rekap', arrParameter);
+    }
 }

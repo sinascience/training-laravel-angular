@@ -12,12 +12,14 @@ import { DataTablesModule } from 'angular-datatables';
 
 import { RekapRoutingModule } from './rekap-routing.module';
 import { RekapMenuComponent } from './components/rekap-menu/rekap-menu.component';
+import { RekapCustomerComponent } from './components/rekap-customer/rekap-customer.component';
+import { RekapComponent } from './components/rekap/rekap.component';
 
 
 
 
 @NgModule({
-    declarations: [ RekapMenuComponent ],
+    declarations: [ RekapMenuComponent, RekapCustomerComponent, RekapComponent ],
     imports: [
         CommonModule,
         RekapRoutingModule,

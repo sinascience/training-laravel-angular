@@ -89,8 +89,9 @@ Route::prefix('v1')->group(function () {
      /**
      * SHOW order
      */
-    Route::get('/rekap-menu', [RekapMenuController::class, 'index'])->middleware(['web', 'auth.api:item_view']);
-    Route::get('/rekap-menu/{id}', [RekapMenuController::class, 'show'])->middleware(['web', 'auth.api:item_view']);
+    Route::get('/rekap', [RekapMenuController::class, 'index'])->middleware(['web', 'auth.api:item_view']);
+    Route::get('/rekap-menu', [RekapMenuController::class, 'indexMenu'])->middleware(['web', 'auth.api:item_view']);
+    Route::get('/rekap-customer', [RekapMenuController::class, 'indexCustomer'])->middleware(['web', 'auth.api:item_view']);
 
     /**
      * Route khusus authentifikasi

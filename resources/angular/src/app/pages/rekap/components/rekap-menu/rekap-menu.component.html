@@ -6,7 +6,7 @@
                     <div class="header-tabeldiv">
                         <div class="row mb-3">
                             <div class="col-9">
-                                <h2 class="text-capitalize fw-bold m-0 heading-judul">Rekap penjualan menu</h2>
+                                <h2 class="text-capitalize fw-bold m-0 heading-judul">Rekap Penjualan Menu</h2>
                             </div>
                         </div>
                     </div>
@@ -61,55 +61,33 @@
         </tr>
     </thead>
     <tbody *ngIf="data">
-        <!-- <tr style="background:#fbfbfb">
+        <tr style="background:#fbfbfb" *ngIf="mode == 'all'">
             <td class="tabel-periode" style="font-weight: 700">GRAND TOTAL</td>
-            <td style="font-weight: 700" align="right">2.000.000</td>
-            <td style="font-weight: 700" align="right">1.750.000</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td align="right" style="font-weight: 700">1.750.000</td>
-        </tr> -->
+            <td style="font-weight: 700" align="right" *ngFor="let i of date">{{ grandTotal[i] | currency:'':'':'0.0-0'}}</td>
+            <td align="right" style="font-weight: 700">{{ sum(grandTotal) | currency: 'Rp. '}}</td>
+        </tr>
+        <tr style="background:#fbfbfb" *ngIf="mode == 'food'">
+            <td class="tabel-periode" style="font-weight: 700">GRAND TOTAL</td>
+            <td style="font-weight: 700" align="right" *ngFor="let i of date">{{ grandTotal.food[i] | currency:'':'':'0.0-0'}}</td>
+            <td align="right" style="font-weight: 700">{{ sum(grandTotal.food) | currency: 'Rp. '}}</td>
+        </tr>
+        <tr style="background:#fbfbfb" *ngIf="mode == 'drink'">
+            <td class="tabel-periode" style="font-weight: 700">GRAND TOTAL</td>
+            <td style="font-weight: 700" align="right" *ngFor="let i of date">{{ grandTotal.drink[i] | currency:'':'':'0.0-0'}}</td>
+            <td align="right" style="font-weight: 700">{{ sum(grandTotal.drink) | currency: 'Rp. '}}</td>
+        </tr>
+        <tr style="background:#fbfbfb" *ngIf="mode == 'snack'">
+            <td class="tabel-periode" style="font-weight: 700">GRAND TOTAL</td>
+            <td style="font-weight: 700" align="right" *ngFor="let i of date">{{ grandTotal.snack[i] | currency:'':'':'0.0-0'}}</td>
+            <td align="right" style="font-weight: 700">{{ sum(grandTotal.snack) | currency: 'Rp. '}}</td>
+        </tr>
         <ng-container *ngIf="mode == 'all' || mode == 'food'">
         <tr style="background:#eee; color:#2e2e2e">
             <td colspan="33" class="tabel-penjualanperiode" >Food</td>
         </tr>
         <tr *ngFor="let food of listFood">
             <td>{{ food.nama }}</td>
-            <td align="right">{{ food.tgl1 }}</td>
-            <td align="right">{{ food.tgl2 }}</td>
-            <td align="right">{{ food.tgl3 }}</td>
-            <td align="right">{{ food.tgl4 }}</td>
-            <td align="right">{{ food.tgl5 }}</td>
-            <td align="right">{{ food.tgl6 }}</td>
-            <td align="right">{{ food.tgl7 }}</td>
-            <td align="right">{{ food.tgl8 }}</td>
-            <td align="right">{{ food.tgl9 }}</td>
-            <td align="right">{{ food.tgl10 }}</td>
-            <td align="right">{{ food.tgl11 }}</td>
-            <td align="right">{{ food.tgl12 }}</td>
-            <td align="right">{{ food.tgl13 }}</td>
-            <td align="right">{{ food.tgl14 }}</td>
-            <td align="right">{{ food.tgl15 }}</td>
-            <td align="right">{{ food.tgl16 }}</td>
-            <td align="right">{{ food.tgl17 }}</td>
-            <td align="right">{{ food.tgl18 }}</td>
-            <td align="right">{{ food.tgl19 }}</td>
-            <td align="right">{{ food.tgl20 }}</td>
-            <td align="right">{{ food.tgl21 }}</td>
-            <td align="right">{{ food.tgl22 }}</td>
-            <td align="right">{{ food.tgl23 }}</td>
-            <td align="right">{{ food.tgl24 }}</td>
-            <td align="right">{{ food.tgl25 }}</td>
-            <td align="right">{{ food.tgl26 }}</td>
-            <td align="right">{{ food.tgl27 }}</td>
-            <td align="right">{{ food.tgl28 }}</td>
-            <td align="right">{{ food.tgl29 }}</td>
-            <td align="right">{{ food.tgl30 }}</td>
-            <td align="right">{{ food.tgl31 }}</td>
+            <th align="right" *ngFor="let i of date">{{ food.tanggal[i - 1] | currency:'':'':'0.0-0'}}</th>
             <td align="right">{{ food.total | currency: 'Rp. '}}</td>
         </tr>
         <tr style='background: #fbfbfb'>
@@ -124,37 +102,7 @@
         </tr>
         <tr *ngFor="let Drink of listDrink">
             <td>{{ Drink.nama }}</td>
-            <td align="right">{{ Drink.tgl1 }}</td>
-            <td align="right">{{ Drink.tgl2 }}</td>
-            <td align="right">{{ Drink.tgl3 }}</td>
-            <td align="right">{{ Drink.tgl4 }}</td>
-            <td align="right">{{ Drink.tgl5 }}</td>
-            <td align="right">{{ Drink.tgl6 }}</td>
-            <td align="right">{{ Drink.tgl7 }}</td>
-            <td align="right">{{ Drink.tgl8 }}</td>
-            <td align="right">{{ Drink.tgl9 }}</td>
-            <td align="right">{{ Drink.tgl10 }}</td>
-            <td align="right">{{ Drink.tgl11 }}</td>
-            <td align="right">{{ Drink.tgl12 }}</td>
-            <td align="right">{{ Drink.tgl13 }}</td>
-            <td align="right">{{ Drink.tgl14 }}</td>
-            <td align="right">{{ Drink.tgl15 }}</td>
-            <td align="right">{{ Drink.tgl16 }}</td>
-            <td align="right">{{ Drink.tgl17 }}</td>
-            <td align="right">{{ Drink.tgl18 }}</td>
-            <td align="right">{{ Drink.tgl19 }}</td>
-            <td align="right">{{ Drink.tgl20 }}</td>
-            <td align="right">{{ Drink.tgl21 }}</td>
-            <td align="right">{{ Drink.tgl22 }}</td>
-            <td align="right">{{ Drink.tgl23 }}</td>
-            <td align="right">{{ Drink.tgl24 }}</td>
-            <td align="right">{{ Drink.tgl25 }}</td>
-            <td align="right">{{ Drink.tgl26 }}</td>
-            <td align="right">{{ Drink.tgl27 }}</td>
-            <td align="right">{{ Drink.tgl28 }}</td>
-            <td align="right">{{ Drink.tgl29 }}</td>
-            <td align="right">{{ Drink.tgl30 }}</td>
-            <td align="right">{{ Drink.tgl31 }}</td>
+            <th align="right" *ngFor="let i of date">{{ Drink.tanggal[i - 1] | currency:'':'':'0.0-0'}}</th>
             <td align="right">{{ Drink.total | currency: 'Rp. '}}</td>
         </tr>
         <tr style='background: #fbfbfb'>
@@ -169,37 +117,7 @@
         </tr>
         <tr *ngFor="let Snack of listSnack">
             <td>{{ Snack.nama }}</td>
-            <td align="right">{{ Snack.tgl1 }}</td>
-            <td align="right">{{ Snack.tgl2 }}</td>
-            <td align="right">{{ Snack.tgl3 }}</td>
-            <td align="right">{{ Snack.tgl4 }}</td>
-            <td align="right">{{ Snack.tgl5 }}</td>
-            <td align="right">{{ Snack.tgl6 }}</td>
-            <td align="right">{{ Snack.tgl7 }}</td>
-            <td align="right">{{ Snack.tgl8 }}</td>
-            <td align="right">{{ Snack.tgl9 }}</td>
-            <td align="right">{{ Snack.tgl10 }}</td>
-            <td align="right">{{ Snack.tgl11 }}</td>
-            <td align="right">{{ Snack.tgl12 }}</td>
-            <td align="right">{{ Snack.tgl13 }}</td>
-            <td align="right">{{ Snack.tgl14 }}</td>
-            <td align="right">{{ Snack.tgl15 }}</td>
-            <td align="right">{{ Snack.tgl16 }}</td>
-            <td align="right">{{ Snack.tgl17 }}</td>
-            <td align="right">{{ Snack.tgl18 }}</td>
-            <td align="right">{{ Snack.tgl19 }}</td>
-            <td align="right">{{ Snack.tgl20 }}</td>
-            <td align="right">{{ Snack.tgl21 }}</td>
-            <td align="right">{{ Snack.tgl22 }}</td>
-            <td align="right">{{ Snack.tgl23 }}</td>
-            <td align="right">{{ Snack.tgl24 }}</td>
-            <td align="right">{{ Snack.tgl25 }}</td>
-            <td align="right">{{ Snack.tgl26 }}</td>
-            <td align="right">{{ Snack.tgl27 }}</td>
-            <td align="right">{{ Snack.tgl28 }}</td>
-            <td align="right">{{ Snack.tgl29 }}</td>
-            <td align="right">{{ Snack.tgl30 }}</td>
-            <td align="right">{{ Snack.tgl31 }}</td>
+            <th align="right" *ngFor="let i of date">{{ Snack.tanggal[i - 1] | currency:'':'':'0.0-0'}}</th>
             <td align="right">{{ Snack.total | currency: 'Rp. '}}</td>
         </tr>
         <tr style='background: #fbfbfb'>
