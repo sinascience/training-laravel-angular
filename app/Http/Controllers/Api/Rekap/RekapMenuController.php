@@ -160,6 +160,19 @@ class RekapMenuController extends Controller
         return response()->success($hello);
     }
     
+    public function indexBulanan(Request $request)
+    {
+        $filter = [
+        'year' => $request->year ?? 2022 ];
+        $rekapmenus = $this->rekapMenu->queryLaporanBulanan($filter['year']);
+        return response()->success($rekapmenus);
+    }
+
+    public function indexPerHariIni()
+    {
+        $rekapmenus = $this->rekapMenu->queryLaporanPerHariIni();
+        return response()->success($rekapmenus);
+    }
     /**
      * Display the specified resource.
      *

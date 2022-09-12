@@ -33,7 +33,7 @@ class UserController extends Controller
             'page' => $request->page ?? null,
             'limit' => $request->limit ?? null,
         ];
-        $users = $this->user->getAll($filter, $filter['limit'], $request->sort ?? '');
+        $users = $this->user->getAll($filter, $filter['limit'] ?? 0, $request->sort ?? '');
 
         return response()->success(new UserCollection($users));
     }

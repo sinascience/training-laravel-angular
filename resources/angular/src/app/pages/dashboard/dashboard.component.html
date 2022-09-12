@@ -1,1 +1,92 @@
-<p>dashboard works!</p>
+
+<section id="content-wrapper">
+  <div class="container-fluid">
+      <div class="row header-row">
+          <div class="col-4 col-sm-12 col-md-12 col-lg-12 col-xl-4">
+              <div class="row">
+                  <div class="col-6">
+                    <div href="#" class="cardd card human-resources">
+                      <div class="overlay"></div>
+                    <div class="circle">
+                      
+                      <svg xmlns="http://www.w3.org/2000/svg"  width="40px" height="50px" viewBox="0 0 24 24"><path d="M24 3.875l-6 1.221 1.716 1.708-5.351 5.358-3.001-3.002-7.336 7.242 1.41 1.418 5.922-5.834 2.991 2.993 6.781-6.762 1.667 1.66 1.201-6.002zm0 17.125v2h-24v-22h2v20h22z" fill="#3B6CB7"/></svg> 
+                    
+                    </div>
+                    <p style="font-size: 20px; text-align: center;">Hasil Kemarin<br> <strong>{{ kemarin | currency: 'Rp. '}}</strong></p>
+                  </div>
+                  </div>
+                  <div class="col-6">
+                    <div href="#" class="cardd card wallet">
+                      <div class="overlay"></div>
+                    <div class="circle">
+                     
+                    <svg xmlns="http://www.w3.org/2000/svg" width="60px" height="70px" viewBox="0 0 24 24"><path d="M12.324 7.021l.154.345c.237-.041.52-.055.847-.025l.133.577c-.257-.032-.53-.062-.771-.012l-.092.023c-.464.123-.316.565.098.672.682.158 1.494.208 1.815.922.258.578-.041.973-.541 1.163l.154.346-.325.068-.147-.329c-.338.061-.725.053-1.08-.041l-.1-.584c.294.046.658.087.938.03l.186-.06c.333-.165.231-.582-.264-.681-.367-.083-1.342-.021-1.705-.831-.205-.458-.053-.936.535-1.154l-.161-.361.326-.068m3.82 1.614c-.706-1.648-2.681-2.751-4.409-2.463-1.728.288-2.557 1.857-1.85 3.506.746 1.739 2.888 2.853 4.651 2.414 1.562-.388 2.28-1.887 1.608-3.457zm4.05-5.635l3.766 8.233c-5.433 4.223-12.654-.038-17.951 4.461l-3.766-8.233c4.944-4.779 11.773-.45 17.951-4.461zm3.806 12.014c-6.857 3.939-12.399-1.424-19.5 5.986l-4.5-9.964 1.402-1.462 3.807 8.401-.002.008c7.445-5.592 11.195-1.175 18.109-4.561.294.647.565 1.33.684 1.592z" fill="#8B6FC0"/></svg> 
+                    
+                    </div>
+                      <p style="font-size: 20px; text-align: center;">Hasil Bulan Lalu <br> <strong>{{ bulan_lalu | currency: 'Rp. '}}</strong></p>
+                  </div>
+                  </div>
+                  <div class="col-6">
+                    <div href="#" class="cardd card credentialing">
+                      <div class="overlay"></div>
+                    <div class="circle">
+                     
+                      <svg clip-rule="evenodd" width="60px" height="70px" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m3.514 6.61c-.317.179-.514.519-.514.887v8.95c0 .37.197.708.514.887 1.597.901 6.456 3.639 8.005 4.512.152.085.319.128.487.128.164 0 .328-.041.477-.123 1.549-.855 6.39-3.523 7.994-4.408.323-.177.523-.519.523-.891v-9.055c0-.368-.197-.708-.515-.887-1.595-.899-6.444-3.632-7.999-4.508-.151-.085-.319-.128-.486-.128-.168 0-.335.043-.486.128-1.555.876-6.405 3.609-8 4.508m15.986 2.115v7.525l-6.75 3.722v-7.578zm-15 7.425v-7.458l6.75 3.75v7.511zm.736-8.769 6.764-3.813 6.801 3.834-6.801 3.716z" fill-rule="nonzero" fill="#59B08B"/></svg>
+                    
+                    </div>
+                      <p style="font-size: 20px; text-align: center;">Hasil Hari Ini <br> <strong>{{ hari_ini | currency: 'Rp. '}}</strong></p>
+
+                  </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="cardd card education">
+                      <div class="overlay"></div>
+                        <div class="circle">
+        
+                          <svg xmlns="http://www.w3.org/2000/svg" width="50px" height="60px" viewBox="0 0 24 24"><path d="M12.23 15.5c-6.801 0-10.367-1.221-12.23-2.597v9.097h24v-8.949c-3.218 2.221-9.422 2.449-11.77 2.449zm1.77 2.532c0 1.087-.896 1.968-2 1.968s-2-.881-2-1.968v-1.032h4v1.032zm-14-8.541v-2.491h24v2.605c0 5.289-24 5.133-24-.114zm9-7.491c-1.104 0-2 .896-2 2v2h2v-1.5c0-.276.224-.5.5-.5h5c.276 0 .5.224.5.5v1.5h2v-2c0-1.104-.896-2-2-2h-6z" fill="#59A785"/></svg>
+                        </div>
+                          <p style="font-size: 20px; text-align: center;">Hasil Bulan Ini <br> <strong>{{ bulan_ini | currency: 'Rp. '}}</strong></p>
+                    </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-6 col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-8" *ngIf="data">
+              <div class="card" style="/*padding: 50px;*/padding-bottom: 0px;padding-top: 0px;">
+                <div class="card-header" style="background-color: #008ffb;">
+                  <div class="row mt-2">
+                    <div class="col-10">
+                      <h1 style="font-size: 36px; color: #fff; margin-top: 8px;">Grafik Penjualan</h1>
+                    </div>
+                    <div class="col-2" style="border-bottom-color: #2e2e2e;">
+                        <div class="p-2">
+                            <div class="form-group mb-3">
+                                <select class="form-control" style="width: 100%;" (change)="getRekap($event.target.value)">
+                                    <option value="" selected>Year</option>
+                                    <option *ngFor="let y of listYear" [value]="y">{{ y }}</option>
+                                </select>
+                            </div>
+                        </div>
+                      </div>
+                    </div> 
+                </div>
+                <div class="card-body">
+                <div id="chart" >
+                  <apx-chart
+                    [series]="chartOptions.series"
+                    [chart]="chartOptions.chart"
+                    [dataLabels]="chartOptions.dataLabels"
+                  [plotOptions]="chartOptions.plotOptions"
+                    [yaxis]="chartOptions.yaxis"
+                    [legend]="chartOptions.legend"
+                    [fill]="chartOptions.fill"
+                    [stroke]="chartOptions.stroke"
+                    [tooltip]="chartOptions.tooltip"
+                    [xaxis]="chartOptions.xaxis"
+                  ></apx-chart>
+                </div>
+              </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>

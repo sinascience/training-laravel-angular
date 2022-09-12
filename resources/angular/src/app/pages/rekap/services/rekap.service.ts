@@ -16,6 +16,14 @@ export class RekapService {
         return this.landaService.DataGet('/v1/rekap-customer', arrParameter);
     }
 
+    getRekapBulanan(arrParameter) {
+        return this.landaService.DataGet('/v1/rekap-bulanan', arrParameter);
+    }
+
+    getRekapPerHari() {
+        return this.landaService.DataGet('/v1/rekap-hari-ini');
+    }
+
     getRekap(arrParameter) {
         return this.landaService.DataGet('/v1/rekap', arrParameter);
     }

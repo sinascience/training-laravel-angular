@@ -6,6 +6,13 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+    NgbModule,
+    NgbTooltipModule,
+    NgbModalModule
+} from '@ng-bootstrap/ng-bootstrap';
+
+import { NgApexchartsModule } from "ng-apexcharts";
 
 import { PagesRoutingModule } from './pages-routing.module';
 
@@ -19,11 +26,15 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 @NgModule({
     declarations: [DashboardComponent],
     imports: [
+        NgbModule,
+        NgbTooltipModule,
+        NgbModalModule,
         ReactiveFormsModule,
         NgbAlertModule,
         CommonModule,
         PagesRoutingModule,
         PerfectScrollbarModule,
+        NgApexchartsModule,
     ],
     providers: [
         {

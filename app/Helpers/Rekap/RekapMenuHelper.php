@@ -35,6 +35,16 @@ class RekapMenuHelper implements RekapInterface
         return $this->rekapMenuModel->queryLaporanMenu($month, $year);
     }
 
+    public function queryLaporanBulanan($year)
+    {
+        return $this->rekapMenuModel->queryLaporanBulanan($year);
+    }
+
+    public function queryLaporanPerHariIni()
+    {
+        return $this->rekapMenuModel->queryLaporanPerHariIni();
+    }
+
     /**
      * Mengambil data item dari tabel m_item
      *

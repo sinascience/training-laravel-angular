@@ -8,13 +8,16 @@
         "hot": "mix watch --hot",
         "prod": "npm run production",
         "production": "mix --production",
-        "start" : "cd resources/angular && npm start",
-        "build" : "cd resources/angular && npm run build"
+        "start": "cd resources/angular && npm start",
+        "build": "cd resources/angular && npm run build"
     },
     "devDependencies": {
         "axios": "^0.21",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14"
+    },
+    "dependencies": {
+        "ng-apexcharts": "^1.7.1"
     }
 }

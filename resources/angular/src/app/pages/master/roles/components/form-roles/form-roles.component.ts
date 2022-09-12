@@ -40,7 +40,34 @@ export class FormRolesComponent implements OnInit {
                 update: boolean
                 delete: boolean
                 view: boolean
-            }
+            },
+            promo: {
+                create: boolean
+                update: boolean
+                delete: boolean
+                view: boolean
+            },
+            diskon: {
+                create: boolean
+                update: boolean
+                delete: boolean
+                view: boolean
+            },
+            voucher: {
+                create: boolean
+                update: boolean
+                delete: boolean
+                view: boolean
+            },
+            penjualan_menu: {
+                view: boolean
+            },
+            penjualan_customer: {
+                view: boolean
+            },
+            penjualan: {
+                view: boolean
+            },
         },
     }
 
@@ -85,6 +112,33 @@ export class FormRolesComponent implements OnInit {
                     create: false,
                     update: false,
                     delete: false,
+                    view: false,
+                },
+                promo: {
+                    create: false,
+                    update: false,
+                    delete: false,
+                    view: false,
+                },
+                diskon: {
+                    create: false,
+                    update: false,
+                    delete: false,
+                    view: false,
+                },
+                voucher: {
+                    create: false,
+                    update: false,
+                    delete: false,
+                    view: false,
+                },
+                penjualan_menu: {
+                    view: false,
+                },
+                penjualan_customer: {
+                    view: false,
+                },
+                penjualan: {
                     view: false,
                 },
             },

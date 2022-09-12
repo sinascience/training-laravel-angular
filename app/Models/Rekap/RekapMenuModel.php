@@ -80,7 +80,8 @@ class RekapMenuModel extends Model implements ModelRekapInterface
                             GROUP_CONCAT(m_item.nama) as menu, 
                             GROUP_CONCAT(t_detail_order.jumlah) as jumlah,
                             GROUP_CONCAT(m_item.harga) as harga,  
-                            GROUP_CONCAT(t_detail_order.total) as total, t_order.diskon, t_order.potongan, t_order.total_order, t_order.total_bayar
+                            GROUP_CONCAT(t_detail_order.total) as total, 
+                            t_order.diskon, t_order.potongan, t_order.total_order, t_order.total_bayar
                             FROM t_detail_order
                             JOIN m_item on t_detail_order.id_item = m_item.id 
                             JOIN t_order on t_detail_order.id_order = t_order.id_order 
@@ -181,6 +182,40 @@ class RekapMenuModel extends Model implements ModelRekapInterface
         return DB::select(DB::raw($query));
     }
 
+    public function queryLaporanBulanan($year)
+    {
+        $query = "SELECT  sum(t_detail_order.total) AS total,
+        SUM(CASE WHEN MONTH(tanggal)=1 THEN t_detail_order.total ELSE 0 END) as jan,
+        SUM(CASE WHEN MONTH(tanggal)=2 THEN t_detail_order.total ELSE 0 END) as feb,
+        SUM(CASE WHEN MONTH(tanggal)=3 THEN t_detail_order.total ELSE 0 END) as mar,
+        SUM(CASE WHEN MONTH(tanggal)=4 THEN t_detail_order.total ELSE 0 END) as apr,
+        SUM(CASE WHEN MONTH(tanggal)=5 THEN t_detail_order.total ELSE 0 END) as mei,
+        SUM(CASE WHEN MONTH(tanggal)=6 THEN t_detail_order.total ELSE 0 END) as jun,
+        SUM(CASE WHEN MONTH(tanggal)=7 THEN t_detail_order.total ELSE 0 END) as jul,
+        SUM(CASE WHEN MONTH(tanggal)=8 THEN t_detail_order.total ELSE 0 END) as aug,
+        SUM(CASE WHEN MONTH(tanggal)=9 THEN t_detail_order.total ELSE 0 END) as sep,
+        SUM(CASE WHEN MONTH(tanggal)=10 THEN t_detail_order.total ELSE 0 END) as okt,
+        SUM(CASE WHEN MONTH(tanggal)=11 THEN t_detail_order.total ELSE 0 END) as nov,
+        SUM(CASE WHEN MONTH(tanggal)=12 THEN t_detail_order.total ELSE 0 END) as des
+        FROM t_detail_order 
+		  JOIN t_order on t_detail_order.id_order = t_order.id_order
+        where YEAR(tanggal)= '" . (string) $year . "'";
+        
+        return DB::select(DB::raw($query));
+    }
+
+    public function queryLaporanPerHariIni()
+    {
+        $query = "SELECT  
+        SUM(CASE WHEN tanggal=DATE_SUB(CURDATE(), INTERVAL 1 DAY) THEN t_detail_order.total ELSE 0 END) AS kemarin,
+        SUM(CASE WHEN tanggal=CURDATE() THEN t_detail_order.total ELSE 0 END) AS hari_ini,
+        SUM(CASE WHEN MONTH(tanggal)=MONTH(DATE_SUB(CURDATE(), INTERVAL 1 MONTH)) THEN t_detail_order.total ELSE 0 END) AS bulan_lalu,
+        SUM(CASE WHEN MONTH(tanggal)=MONTH(CURDATE()) THEN t_detail_order.total ELSE 0 END) AS bulan_ini
+        FROM t_detail_order 
+		  JOIN t_order on t_detail_order.id_order = t_order.id_order;";
+        
+        return DB::select(DB::raw($query));
+    }
     
     public function getAll(array $filter, int $itemPerPage = 0, string $sort = ''): object
     {

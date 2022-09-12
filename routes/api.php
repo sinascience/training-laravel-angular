@@ -62,36 +62,38 @@ Route::prefix('v1')->group(function () {
      /**
      * CRUD promo / produk
      */
-    Route::get('/promo', [PromoController::class, 'index'])->middleware(['web', 'auth.api:item_view']);
-    Route::get('/promo/{id}', [PromoController::class, 'show'])->middleware(['web', 'auth.api:item_view']);
-    Route::post('/promo', [PromoController::class, 'store'])->middleware(['web', 'auth.api:item_create']);
-    Route::put('/promo', [PromoController::class, 'update'])->middleware(['web', 'auth.api:item_update']);
-    Route::delete('/promo/{id}', [PromoController::class, 'destroy'])->middleware(['web', 'auth.api:item_delete']);
+    Route::get('/promo', [PromoController::class, 'index'])->middleware(['web', 'auth.api:promo_view']);
+    Route::get('/promo/{id}', [PromoController::class, 'show'])->middleware(['web', 'auth.api:promo_view']);
+    Route::post('/promo', [PromoController::class, 'store'])->middleware(['web', 'auth.api:promo_create']);
+    Route::put('/promo', [PromoController::class, 'update'])->middleware(['web', 'auth.api:promo_update']);
+    Route::delete('/promo/{id}', [PromoController::class, 'destroy'])->middleware(['web', 'auth.api:promo_delete']);
 
      /**
      * CRUD diskon
      */
-    Route::get('/diskon', [DiskonController::class, 'index'])->middleware(['web', 'auth.api:item_view']);
-    Route::get('/diskon/{id}', [DiskonController::class, 'show'])->middleware(['web', 'auth.api:item_view']);
-    Route::post('/diskon', [DiskonController::class, 'store'])->middleware(['web', 'auth.api:item_create']);
-    Route::put('/diskon', [DiskonController::class, 'update'])->middleware(['web', 'auth.api:item_update']);
-    Route::delete('/diskon/{id}', [DiskonController::class, 'destroy'])->middleware(['web', 'auth.api:item_delete']);
+    Route::get('/diskon', [DiskonController::class, 'index'])->middleware(['web', 'auth.api:diskon_view']);
+    Route::get('/diskon/{id}', [DiskonController::class, 'show'])->middleware(['web', 'auth.api:diskon_view']);
+    Route::post('/diskon', [DiskonController::class, 'store'])->middleware(['web', 'auth.api:diskon_create']);
+    Route::put('/diskon', [DiskonController::class, 'update'])->middleware(['web', 'auth.api:diskon_update']);
+    Route::delete('/diskon/{id}', [DiskonController::class, 'destroy'])->middleware(['web', 'auth.api:diskon_delete']);
 
      /**
      * CRUD voucher
      */
-    Route::get('/voucher', [VoucherController::class, 'index'])->middleware(['web', 'auth.api:item_view']);
-    Route::get('/voucher/{id}', [VoucherController::class, 'show'])->middleware(['web', 'auth.api:item_view']);
-    Route::post('/voucher', [VoucherController::class, 'store'])->middleware(['web', 'auth.api:item_create']);
-    Route::put('/voucher', [VoucherController::class, 'update'])->middleware(['web', 'auth.api:item_update']);
-    Route::delete('/voucher/{id}', [VoucherController::class, 'destroy'])->middleware(['web', 'auth.api:item_delete']);
+    Route::get('/voucher', [VoucherController::class, 'index'])->middleware(['web', 'auth.api:voucher_view']);
+    Route::get('/voucher/{id}', [VoucherController::class, 'show'])->middleware(['web', 'auth.api:voucher_view']);
+    Route::post('/voucher', [VoucherController::class, 'store'])->middleware(['web', 'auth.api:voucher_create']);
+    Route::put('/voucher', [VoucherController::class, 'update'])->middleware(['web', 'auth.api:voucher_update']);
+    Route::delete('/voucher/{id}', [VoucherController::class, 'destroy'])->middleware(['web', 'auth.api:voucher_delete']);
 
      /**
      * SHOW order
      */
-    Route::get('/rekap', [RekapMenuController::class, 'index'])->middleware(['web', 'auth.api:item_view']);
-    Route::get('/rekap-menu', [RekapMenuController::class, 'indexMenu'])->middleware(['web', 'auth.api:item_view']);
-    Route::get('/rekap-customer', [RekapMenuController::class, 'indexCustomer'])->middleware(['web', 'auth.api:item_view']);
+    Route::get('/rekap', [RekapMenuController::class, 'index'])->middleware(['web', 'auth.api:penjualan_view']);
+    Route::get('/rekap-hari-ini', [RekapMenuController::class, 'indexPerHariIni'])->middleware(['auth.api']);
+    Route::get('/rekap-bulanan', [RekapMenuController::class, 'indexBulanan'])->middleware(['auth.api']);
+    Route::get('/rekap-menu', [RekapMenuController::class, 'indexMenu'])->middleware(['web', 'auth.api:penjualan_menu_view']);
+    Route::get('/rekap-customer', [RekapMenuController::class, 'indexCustomer'])->middleware(['web', 'auth.api:penjualan_customer_view']);
 
     /**
      * Route khusus authentifikasi

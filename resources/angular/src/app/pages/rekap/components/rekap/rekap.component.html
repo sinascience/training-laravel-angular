@@ -81,7 +81,7 @@
                 <td [attr.rowspan]="rekap.menu.length" class="align-middle">-</td>
                 <td [attr.rowspan]="rekap.menu.length" class="align-middle" align="right">{{ voucher(rekap.total_order, rekap.diskon) | currency:'Rp. '}}</td>
             </tr>
-            <ng-container *ngFor="let menu of rekap.menu; let i= index;">
+            <ng-container *ngFor="let menu of rekap.menu; index as i">
             <tr align="center" *ngIf="i!=0">
                 <td>{{ menu }}</td>
                 <td>{{ rekap.jumlah[i] }}</td>
