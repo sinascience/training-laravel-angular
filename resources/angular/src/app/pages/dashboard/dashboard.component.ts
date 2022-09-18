@@ -14,6 +14,7 @@ import {
   ApexFill,
   ApexTooltip
 } from "ng-apexcharts";
+import { formattedError } from '@angular/compiler';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -76,7 +77,7 @@ export class DashboardComponent implements OnInit {
     
   }
 
-  getRekap(year) {
+  getRekap(year) { 
     this.year = year;
         const params = {
           filter: JSON.stringify({}),
@@ -111,7 +112,8 @@ export class DashboardComponent implements OnInit {
             plotOptions: {
               bar: {
                 horizontal: false,
-                columnWidth: "55%"
+                columnWidth: "55%",
+                endingShape: "rounded"
               }
             },
             dataLabels: {
@@ -140,7 +142,7 @@ export class DashboardComponent implements OnInit {
             },
             yaxis: {
               labels: {
-                formatter: function(val) {
+                formatter: val => {
                   if(val != 0) {
                   let prefix = ' '
                   let string = val.toString()
@@ -170,7 +172,7 @@ export class DashboardComponent implements OnInit {
             },
             tooltip: {
               y: {
-                formatter: function(val) {
+                formatter: val => {
                   let prefix = 'Rp. '
                   let string = val.toString()
                   let number_string = string.replace(/[^,\d]/g, '').toString(),
@@ -203,6 +205,7 @@ export class DashboardComponent implements OnInit {
 
     
     };
+
   }
 
 

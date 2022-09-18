@@ -53,7 +53,8 @@ class UserController extends Controller
             return response()->failed($request->validator->errors());
         }
 
-        $dataInput = $request->only(['email', 'nama', 'password', 'foto', 'fotoUrl']);
+        $dataInput = $request->only(['email', 'nama', 'password', 'foto', 'fotoUrl', 'akses']);
+        $dataInput['user_roles_id'] = $dataInput['akses']['id']; 
         $dataUser = $this->user->create($dataInput);
         
         if (!$dataUser['status']) {

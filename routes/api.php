@@ -9,6 +9,9 @@ use App\Http\Controllers\Api\Master\PromoController;
 use App\Http\Controllers\Api\Master\DiskonController;
 use App\Http\Controllers\Api\Master\VoucherController;
 use App\Http\Controllers\Api\Rekap\RekapMenuController;
+use App\Http\Controllers\Api\AngularJs\CustomerJsController;
+use App\Http\Controllers\Api\AngularJs\PaymentController;
+use App\Http\Controllers\Api\AngularJs\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -85,6 +88,33 @@ Route::prefix('v1')->group(function () {
     Route::post('/voucher', [VoucherController::class, 'store'])->middleware(['web', 'auth.api:voucher_create']);
     Route::put('/voucher', [VoucherController::class, 'update'])->middleware(['web', 'auth.api:voucher_update']);
     Route::delete('/voucher/{id}', [VoucherController::class, 'destroy'])->middleware(['web', 'auth.api:voucher_delete']);
+
+    /**
+     * CRUD customerJs
+     */
+    Route::get('/customer-js', [CustomerJsController::class, 'index']);
+    Route::get('/customer-js/{id}', [CustomerJsController::class, 'show']);
+    Route::post('/customer-js', [CustomerJsController::class, 'store']);
+    Route::put('/customer-js', [CustomerJsController::class, 'update']);
+    Route::delete('/customer-js/{id}', [CustomerJsController::class, 'destroy']);
+
+    /**
+     * CRUD product
+     */
+    Route::get('/product', [ProductController::class, 'index']);
+    Route::get('/product/{id}', [ProductController::class, 'show']);
+    Route::post('/product', [ProductController::class, 'store'])->middleware(['web', 'auth.api:voucher_create']);
+    Route::put('/product', [ProductController::class, 'update'])->middleware(['web', 'auth.api:voucher_create']);
+    Route::delete('/product/{id}', [ProductController::class, 'destroy']);
+
+    /**
+     * CRUD payment
+     */
+    Route::get('/payment', [PaymentController::class, 'index']);
+    Route::get('/payment/{id}', [PaymentController::class, 'show']);
+    Route::post('/payment', [PaymentController::class, 'store'])->middleware(['auth.api']);
+    Route::put('/payment', [PaymentController::class, 'update'])->middleware(['web', 'auth.api:voucher_create']);
+    Route::delete('/payment/{id}', [PaymentController::class, 'destroy'])->middleware(['web', 'auth.api:voucher_create']);
 
      /**
      * SHOW order

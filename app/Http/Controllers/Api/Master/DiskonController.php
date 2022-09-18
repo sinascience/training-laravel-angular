@@ -42,25 +42,18 @@ class DiskonController extends Controller
      */
     public function store(CreateRequest $request)
     {
-        /**
-        * Menampilkan pesan error ketika validasi gagal
-        * pengaturan validasi bisa dilihat pada class app/Http/request/User/CreateRequest
-        */
-        if (isset($request->validator) && $request->validator->fails()) {
-            return response()->failed($request->validator->errors(), 422);
-        }
-        
+
         $dataInput = $request->only([
             'user_auth_id',
             'm_promo_id',
             'status'
         ]);
         $dataDiskon = $this->diskon->create($dataInput);
-        
+
         if (!$dataDiskon['status']) {
             return response()->failed($dataDiskon['error'], 422);
         }
-        
+
         return response()->success(new DiskonResource($dataDiskon['data']), 'Data item berhasil disimpan');
     }
 
@@ -105,7 +98,7 @@ class DiskonController extends Controller
             'id'
         ]);
         $dataDiskon = $this->diskon->update($dataInput, $dataInput['id']);
-        
+
         if (!$dataDiskon['status']) {
             return response()->failed($dataDiskon['error']);
         }

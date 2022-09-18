@@ -14,7 +14,7 @@ use App\Http\Controllers\Web\TestsController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/{any}', [AppController::class, 'index'])->where('any', '^(?!print|excel|pdf|assets|storage).*$');
+Route::get('/{any}', [AppController::class, 'index'])->where('any', '^(?!print|excel|pdf|assets|storage|echo).*$');
 
 Route::get('/login', function () {
     return '';
@@ -23,7 +23,7 @@ Route::get('/login', function () {
 /**
  * Route khusus hasil riset
  */
-Route::prefix('tests')->group(function () {
+Route::prefix('echo')->group(function () {
     Route::get('/generatePdf', [TestsController::class, 'generatePdf']);
     Route::get('/downloadPdf', [TestsController::class, 'downloadPdf']);
     Route::get('/importExcel', [TestsController::class, 'importExcel']);
