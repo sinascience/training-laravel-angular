@@ -40,7 +40,7 @@ initFirebaseBackend(environment.firebaseConfig);
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule { 
+export class AppModule {
     constructor(private authService: AuthService) {
         this.authService.saveCsrf();
 
